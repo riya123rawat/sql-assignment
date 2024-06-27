@@ -66,8 +66,11 @@ select c. name from city c where
  where a.region in (select b.region from country b, city c where b.code=c.countrycode and c. name ="Yaren");
  
  # 19: What unique languages are spoken in the countries in the same region as the city named Riga
-
+select distinct a. language from countrylanguage a
+ join country b on a.countrycode=b.code
+ join city c on b.code =c.countrycode
+ where b.region in (select region from country d , city e where e.name ="Riga");
 
 # 20: Get the name of the most populous city
-select cityname from city order by population desc 
-where Rownum =1;
+select name from city order by population desc 
+limit 1
